@@ -35,7 +35,11 @@ if [ "${1:-}" = "--list" ] || [ "${1:-}" = "-l" ]; then
     # 内容提示：README 首行标题（> 之后的第一行正文）或前几个文件名
     hint=""
     if [ -f "$d/README.md" ]; then
-      hint=$(grep -vE '^#|^$|^>' "$d/README.md" 2>/dev/null | head -1 | cut -c1-40)
+      # 优先取 `>` 摘要行（约定：README 用引用块写一句话摘要）
+      hint=$(grep -m1 '^>' "$d/README.md" 2>/dev/null | sed 's/^> *//')
+      # 退而求其次：第一条正文
+      [ -z "$hint" ] && hint=$(grep -vE '^#|^$|^>' "$d/README.md" 2>/dev/null | head -1)
+      hint=$(printf '%s' "$hint" | cut -c1-40)
     fi
     [ -z "$hint" ] && hint=$(find "$d" -maxdepth 1 -type f 2>/dev/null | head -3 | xargs -n1 basename 2>/dev/null | tr '\n' ' ' | cut -c1-40)
     printf "  %-40s %6s %4s 个文件  %s\n" "$b" "$sz" "$n" "$hint"
