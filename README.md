@@ -1,5 +1,7 @@
 # 会话产物归拢与命名
 
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/feely0208/dsh-session-artifacts)
+
 **给 AI 编程会话用的工作区整理方法** —— 每个会话一个专属文件夹，收尾时按**实际内容**改名，并刷新索引。
 
 随 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的 skill 插件分发；**三个脚本是纯 bash，不依赖 DSH** —— Claude Code / Codex / Cursor 或任何 agent 都能直接用。
